@@ -1,0 +1,139 @@
+{
+  "bai-1": {
+    "originalName": "Bài 1.docx",
+    "source": "/files/bai-1.docx",
+    "media": [
+      "/artifacts/docx-media/bai-1/bai-1-01.png",
+      "/artifacts/docx-media/bai-1/bai-1-02.png",
+      "/artifacts/docx-media/bai-1/bai-1-03.png",
+      "/artifacts/docx-media/bai-1/bai-1-04.png",
+      "/artifacts/docx-media/bai-1/bai-1-05.png",
+      "/artifacts/docx-media/bai-1/bai-1-06.png",
+      "/artifacts/docx-media/bai-1/bai-1-07.png",
+      "/artifacts/docx-media/bai-1/bai-1-08.png",
+      "/artifacts/docx-media/bai-1/bai-1-09.png",
+      "/artifacts/docx-media/bai-1/bai-1-10.png",
+      "/artifacts/docx-media/bai-1/bai-1-11.png",
+      "/artifacts/docx-media/bai-1/bai-1-12.png"
+    ],
+    "paragraphCount": 11,
+    "characterCount": 816,
+    "preview": [
+      "Mở File Explorer: Nhấn tổ hợp phím Windows + E",
+      "Truy cập thư mục Documents: Trong cột bên trái, chọn This PC → Documents.",
+      "Tạo thư mục mới: Nhấn Ctrl + Shift + N, đặt tên là ThucHanh_HoTenSinhVien.",
+      "Tạo tệp văn bản: Trong thư mục vừa tạo, nhấn chuột phải → New → Text Document. Đặt tên GhiChu.txt.",
+      "Đổi tên tệp: Chọn tệp, nhấn F2, đổi thành GhiChuQuanTrong.txt.",
+      "Tạo thư mục con: Tạo thư mục TaiLieu bên trong ThucHanh_HoTenSinhVien.",
+      "Sao chép tệp: Chọn GhiChuQuanTrong.txt, nhấn Ctrl + C, vào thư mục TaiLieu, nhấn Ctrl + V.",
+      "Di chuyển tệp: Tạo thêm tệp DiChuyen.txt, chọn tệp → Ctrl + X, vào TaiLieu → Ctrl + V.",
+      "Xóa tệp: Trong TaiLieu, chọn GhiChuQuanTrong.txt, nhấn Delete.",
+      "Xóa vĩnh viễn: Chọn DiChuyen.txt, nhấn Shift + Delete."
+    ]
+  },
+  "bai-2": {
+    "originalName": "Bài 2.docx",
+    "source": "/files/bai-2.docx",
+    "media": [],
+    "paragraphCount": 58,
+    "characterCount": 7217,
+    "preview": [
+      "BÁO CÁO KỸ NĂNG TÌM KIẾM VÀ ĐÁNH GIÁ THÔNG TIN",
+      "Chủ đề: Ứng dụng của Generative AI trong việc tự động hóa quá trình Thu thập yêu cầu (Requirements Elicitation) cho phát triển phần mềm.",
+      "I. Mở đầu và Phạm vi tìm kiếm",
+      "Trong bối cảnh ngành Hệ thống Thông tin đang thay đổi nhanh chóng, vai trò của một IT Business Analyst (IT BA) không chỉ dừng lại ở các kỹ năng giao tiếp và phỏng vấn khách hàng truyền thống mà còn đòi hỏi khả năng ứng dụng công nghệ để tối ưu hóa quy trình. Việc ứng dụng Generative AI (AI tạo sinh) vào bước Thu thập yêu cầu (Requirements Elicitation) đang là một xu hướng nghiên cứu có tính thực tiễn rất lớn. Việc hiểu rõ cách AI phân tích ngôn ngữ tự nhiên thành các đặc tả hệ thống cũng có mối liên hệ mật thiết với tư duy logic khi triển khai cấu trúc thuật toán bằng C++, Python hay Java; bởi lẽ cấu trúc hóa tốt các yêu cầu nghiệp vụ ngay từ đầu sẽ giảm thiểu đáng kể rủi ro khi chuyển giao tài liệu sang cho đội ngũ lập trình. Chủ đề này được chọn nhằm chuẩn bị nền tảng kiến thức vững chắc và lợi thế cạnh tranh cho các dự án thực tế cũng như các kỳ thực tập sắp tới.",
+      "Phạm vi tìm kiếm:",
+      "Từ khóa (Keywords): \"Generative AI\", \"Large Language Models\", \"ChatGPT\", \"Requirements Engineering\", \"Requirements Elicitation\".",
+      "Cơ sở dữ liệu (Databases): Google Scholar, IEEE Xplore, ScienceDirect, MDPI, arXiv.",
+      "Tiêu chí lọc: Tài liệu học thuật được bình duyệt (Peer-reviewed journals, conferences), xuất bản trong giai đoạn 2023-2025, tập trung sâu vào mảng Requirements Engineering.",
+      "II. Bảng tổng hợp và Đánh giá độ tin cậy của tài liệu",
+      "(Dưới đây là 5 tài liệu cốt lõi được phân tích sâu. Danh sách đầy đủ 10 tài liệu tham khảo nằm ở mục V)."
+    ]
+  },
+  "bai-3": {
+    "originalName": "Bài 3.docx",
+    "source": "/files/bai-3.docx",
+    "media": [],
+    "paragraphCount": 33,
+    "characterCount": 4709,
+    "preview": [
+      "BÁO CÁO BÀI TẬP: NHẬP MÔN CNS 3.4.2",
+      "Họ và tên: Trần Quốc Hưng Mã sinh viên: 25023277",
+      "I. Mục tiêu",
+      "Phát triển kỹ năng viết prompt hiệu quả để tận dụng tối đa khả năng của các mô hình ngôn ngữ lớn (LLM) trong học tập thông qua ba tác vụ: Tóm tắt bài đọc, giải thích khái niệm phức tạp và tạo bộ câu hỏi ôn tập.",
+      "II. Các tác vụ học tập và phiên bản Prompt",
+      "1. Tác vụ 1: Tóm tắt một bài đọc/tài liệu học thuật (Chủ đề: Biến đổi khí hậu)",
+      "- Prompt cơ bản: \"Tóm tắt bài viết về biến đổi khí hậu.\"",
+      "- Prompt cải tiến: \"Tóm tắt bài viết về biến đổi khí hậu, nêu rõ nguyên nhân chính, hậu quả và các giải pháp khắc phục hiện tại.\"",
+      "- Prompt nâng cao (Role-prompting & Structure): \"Đóng vai là một chuyên gia môi trường, hãy tóm tắt tài liệu về biến đổi khí hậu cho sinh viên đại học theo cấu trúc sau: 1. Tổng quan (3 câu), 2. Nguyên nhân chính (các gạch đầu dòng), 3. Hậu quả nghiêm trọng nhất, 4. Giải pháp ưu tiên. Hãy sử dụng ngôn ngữ khách quan khoa học.\"",
+      "Kết quả và So sánh: Mô hình phản hồi với Prompt cơ bản cho một đoạn văn chung chung, mơ hồ. Prompt cải tiến đã chia tách các ý tốt hơn. Với Prompt nâng cao, kết quả mang tính học thuật cao, bố cục cực kỳ logic theo đúng dàn ý được yêu cầu, rất dễ dàng để sinh viên dùng làm tài liệu tham khảo nhanh."
+    ]
+  },
+  "bai-5": {
+    "originalName": "Bài 5.docx",
+    "source": "/files/bai-5.docx",
+    "media": [
+      "/artifacts/docx-media/bai-5/bai-5-01.png",
+      "/artifacts/docx-media/bai-5/bai-5-02.png",
+      "/artifacts/docx-media/bai-5/bai-5-03.png"
+    ],
+    "paragraphCount": 43,
+    "characterCount": 4795,
+    "preview": [
+      "BÁO CÁO DỰ ÁN SÁNG TẠO NỘI DUNG VỚI AI",
+      "I. Giới thiệu dự án",
+      "Dự án: Bài viết blog với chủ đề \"Tác động của Trí tuệ Nhân tạo (AI) đối với Giáo dục hiện đại\".",
+      "Mục tiêu: Tạo ra một bài viết cung cấp cái nhìn tổng quan, dễ hiểu và hấp dẫn về cách AI đang thay đổi phương pháp giảng dạy và học tập, kết hợp với hình ảnh minh họa sinh động.",
+      "II. Quá trình sử dụng công cụ AI",
+      "Công cụ AI tạo văn bản (Google Gemini)",
+      "Mục đích: Lên dàn ý và viết bản nháp cho bài viết.",
+      "Prompt 1: \"Hãy lập một dàn ý chi tiết cho bài viết blog khoảng 1000 từ về chủ đề Tác động của Trí tuệ Nhân tạo đối với Giáo dục hiện đại. Bao gồm cả ưu điểm, nhược điểm và xu hướng tương lai.\"",
+      "Kết quả nhận được: Gemini cung cấp một dàn ý rất rõ ràng với 4 phần chính: Mở bài, Lợi ích của AI trong giáo dục, Thách thức và rủi ro, Tương lai của AI trong giáo dục và Kết luận.",
+      "Prompt 2: \"Dựa vào dàn ý trên, hãy viết phần Lợi ích của AI trong giáo dục, tập trung vào cá nhân hóa học tập và giảm tải công việc cho giáo viên.\""
+    ]
+  },
+  "bai-6": {
+    "originalName": "Bài 6.docx",
+    "source": "/files/bai-6.docx",
+    "media": [
+      "/artifacts/docx-media/bai-6/bai-6-01.png"
+    ],
+    "paragraphCount": 74,
+    "characterCount": 9877,
+    "preview": [
+      "BÁO CÁO: SỬ DỤNG AI CÓ TRÁCH NHIỆM TRONG HỌC TẬP",
+      "Đối tượng nghiên cứu: RMIT University Vietnam / RMIT Group | Người thực hiện: [Tên sinh viên] | Lớp: [Lớp]",
+      "1. Tóm tắt định hướng",
+      "Báo cáo này phân tích cách RMIT định hướng sinh viên sử dụng trí tuệ nhân tạo (AI) trong học tập và nghiên cứu. Trọng tâm không phải là cấm hay chạy theo AI, mà là dùng AI như một công cụ hỗ trợ học tập có kiểm soát: hiểu quy định từng môn, kiểm chứng đầu ra, giữ quyền tác giả đối với lập luận cuối cùng và minh bạch khi AI có đóng góp vào ý tưởng, văn bản hoặc hình ảnh.",
+      "Kết luận chính: AI có thể giúp người học hiểu nhanh khái niệm, lập kế hoạch, luyện phản biện và cải thiện diễn đạt. Tuy vậy, AI trở thành rủi ro học thuật khi bị dùng để thay thế tư duy của người học, tạo nội dung không được phép, che giấu nguồn hỗ trợ, bịa nguồn hoặc đưa dữ liệu riêng tư vào công cụ công khai.",
+      "2. Chính sách và quan điểm của trường",
+      "2.1. Liêm chính học thuật là nền tảng",
+      "RMIT Academic Integrity Policy áp dụng cho toàn bộ RMIT Group, bao gồm hoạt động học tập, giảng dạy, đánh giá, học thuật và nghiên cứu. Chính sách đặt trọng tâm vào năm giá trị: trung thực, tin cậy, tôn trọng, công bằng và trách nhiệm. Với sinh viên, điều này được cụ thể hóa thành yêu cầu trình bày trung thực bài làm, chịu trách nhiệm về tác giả và tính nguyên bản, hợp tác khi nhà trường cần xác thực quá trình tạo ra bài nộp, và sử dụng công cụ hỗ trợ liêm chính học thuật khi cần. Trang RMIT Vietnam về academic integrity cũng nhấn mạnh các nguy cơ như đạo văn, thông đồng và dịch vụ làm bài thuê.",
+      "2.2. AI được chấp nhận khi hỗ trợ học tập, không thay thế học tập",
+      "Trang Artificial intelligence in learning của RMIT khuyến khích sinh viên phát triển năng lực AI cho môi trường làm việc tương lai, nhưng đi kèm hai nguyên tắc thực dụng: luôn xác minh thông tin từ AI và chỉ dùng nội dung mình hiểu, có thể giải thích bằng lời của mình; đồng thời xem công cụ AI công khai như một “loa phóng thanh”, vì thông tin nhập vào có thể tạo rủi ro về riêng tư, bảo mật và danh tiếng. RMIT cũng giới thiệu các cách dùng an toàn như giải thích khái niệm, tạo câu hỏi luyện tập, tóm tắt ghi chú của chính mình, gợi ý hướng tiếp cận bài tập, hỗ trợ ngôn ngữ và lập kế hoạch học tập."
+    ]
+  },
+  "bai-7": {
+    "originalName": "Bài 7.docx",
+    "source": "/files/bai-7.docx",
+    "media": [],
+    "paragraphCount": 54,
+    "characterCount": 5081,
+    "preview": [
+      "BÁO CÁO TỔNG QUAN TÀI LIỆU KHOA HỌC",
+      "Sinh viên thực hiện: [Tên của bạn]",
+      "Công cụ AI sử dụng: Consensus, Elicit",
+      "I. CHỦ ĐỀ VÀ CÂU HỎI NGHIÊN CỨU",
+      "Chủ đề nghiên cứu: Ứng dụng của vật liệu khung kim loại-hữu cơ (MOFs - Metal-Organic Frameworks) trong thu hồi khí CO2 từ khí thải công nghiệp. (Lý do chọn: Đây là một chủ đề sâu, hẹp và mang tính cấp thiết cao trong bối cảnh biến đổi khí hậu, đồng thời là một trong những hướng nghiên cứu tiên phong của Khoa học Vật liệu và Kỹ thuật Môi trường).",
+      "Câu hỏi nghiên cứu: Các dòng vật liệu MOFs nào đang mang lại hiệu quả cao nhất trong việc thu hồi, tách chọn lọc CO2 từ hỗn hợp khí thải công nghiệp (chủ yếu là CO2/N2) và những rào cản kỹ thuật nào cần được khắc phục để đưa vào ứng dụng thực tế?",
+      "II. BẢNG SO SÁNH KẾT QUẢ TRÍCH XUẤT TỪ CÁC BÀI BÁO",
+      "Dưới đây là 6 bài báo khoa học phù hợp nhất được chọn lọc và trích xuất thông tin (vượt yêu cầu 5 bài báo), với mỗi bài báo trích xuất 5 trường thông tin chính (Phương pháp/Phạm vi, Vật liệu nổi bật, Kết quả/Ưu điểm, Thách thức).",
+      "STT",
+      "Tên bài báo (Năm)"
+    ]
+  },
+  "generated": {
+    "bai4Board": "/artifacts/generated/bai-4-collaboration-board.png",
+    "bai5Cover": "/artifacts/generated/bai-5-ai-education-cover.png"
+  }
+}
