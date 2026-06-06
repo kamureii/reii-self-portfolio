@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PortfolioClient } from "@/components/PortfolioClient";
-import { isLocale, locales, portfolioContent } from "@/data/i18n";
+import { PersonalSiteClient } from "@/components/PersonalSiteClient";
+import { isLocale, locales, siteContent } from "@/data/site";
 
 type LocalePageProps = {
   params: Promise<{ locale: string }>;
@@ -21,7 +21,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const content = portfolioContent[locale];
+  const content = siteContent[locale];
 
   return {
     title: content.meta.title,
@@ -36,5 +36,5 @@ export default async function LocalePage({ params }: LocalePageProps) {
     notFound();
   }
 
-  return <PortfolioClient locale={locale} content={portfolioContent[locale]} />;
+  return <PersonalSiteClient locale={locale} content={siteContent[locale]} />;
 }

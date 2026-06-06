@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,17 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio Nhập môn Công nghệ số và AI | Trần Quốc Hưng",
+  title: "KAMUREI | Trần Quốc Hưng",
   description:
-    "Portfolio đa ngôn ngữ trình bày kết quả bài tập môn Nhập môn Công nghệ số và AI.",
-  applicationName: "Portfolio Nhập môn Công nghệ số và AI",
+    "Blog và portfolio cá nhân của Trần Quốc Hưng: information systems, network security, fullstack learning và âm nhạc.",
+  applicationName: "KAMUREI",
   authors: [{ name: "Trần Quốc Hưng" }],
   keywords: [
-    "portfolio",
-    "UET-VNU",
-    "Nhập môn Công nghệ số",
-    "AI",
+    "KAMUREI",
     "Trần Quốc Hưng",
+    "personal blog",
+    "network security",
+    "information systems",
+    "music creator",
+    "UET-VNU",
+    "VNPT Cyber Immunity",
   ],
 };
 
@@ -35,6 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-ink text-cream">{children}</body>
