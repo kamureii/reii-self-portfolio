@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 
+import { defaultLocale } from "@/data/site";
+
 export default function Home() {
-  redirect("/vi");
+  redirect(`/${defaultLocale}`);
 }

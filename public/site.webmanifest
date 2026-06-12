@@ -1,0 +1,21 @@
+{
+  "name": "KAMUREI | Trần Quốc Hưng",
+  "short_name": "KAMUREI",
+  "description": "Personal blog and portfolio of Trần Quốc Hưng",
+  "start_url": "/vi",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

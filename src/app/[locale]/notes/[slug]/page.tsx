@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { NoteDetailClient } from "@/components/NoteDetailClient";
 import { isLocale, locales, siteContent } from "@/data/site";
+import { localizedAlternates, localizedPath, openGraphImage } from "../../../site-shell";
 
 type NotePageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -21,9 +22,32 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
   const note = siteContent[locale].notes.posts.find((item) => item.slug === slug);
   if (!note) return {};
 
+  const title = `${note.title} | KAMUREI`;
+  const notePath = `/notes/${slug}`;
+  const canonical = localizedPath(locale, notePath);
+
   return {
-    title: `${note.title} | KAMUREI`,
+    title,
     description: note.excerpt,
+    alternates: {
+      canonical,
+      languages: localizedAlternates(notePath),
+    },
+    openGraph: {
+      type: "article",
+      title,
+      description: note.excerpt,
+      url: canonical,
+      locale,
+      alternateLocale: locales.filter((option) => option !== locale),
+      images: [openGraphImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: note.excerpt,
+      images: [openGraphImage],
+    },
   };
 }
 

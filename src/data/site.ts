@@ -2,6 +2,8 @@ export const locales = ["vi", "en", "zh"] as const;
 
 export type Locale = (typeof locales)[number];
 
+export const defaultLocale: Locale = "vi";
+
 export type ContactPlatform =
   | "phone"
   | "email"
@@ -151,7 +153,7 @@ const contacts: ContactLink[] = [
   {
     platform: "linkedin",
     label: "LinkedIn",
-    value: "https://www.linkedin.com/in/kamureii/",
+    value: "linkedin.com/in/kamureii/",
     href: "https://www.linkedin.com/in/kamureii/",
   },
   {
@@ -418,7 +420,7 @@ export const siteContent: Record<Locale, PersonalSiteContent> = {
       lead:
         "I am Trần Quốc Hưng, an Information Systems student with a growing focus on network security, secure infrastructure, and practical engineering. I like building things that feel both useful and expressive: systems with structure, interfaces with rhythm, and stories that leave a trace.",
       quote:
-        "Knowledge is freedom and ignorance is slavery. Anybody can play. The note is only 20 percent. The attitude of the motherfucker who plays it is 80 percent.",
+        "Knowledge is freedom and ignorance is slavery. Anybody can play. The note is only 20 percent. The attitude of the person who plays it is 80 percent.",
       facts: [
         { label: "Based in", value: "Vietnam" },
         { label: "Studying", value: "Information Systems" },
@@ -682,25 +684,25 @@ export const siteContent: Record<Locale, PersonalSiteContent> = {
           title: "Red Signal",
           mood: "Controlled intensity",
           year: "2026",
-          platform: "SoundCloud",
+          platform: "Coming soon",
           description: "一首关于红色信号开始呼吸的占位曲目。",
-          href: "https://soundcloud.com/kamurei-placeholder",
+          href: "#",
         },
         {
           title: "Late Packet",
           mood: "Night infrastructure",
           year: "2026",
-          platform: "YouTube",
+          platform: "Coming soon",
           description: "缓慢而幽暗，像一个迟到却恰逢其时的数据包。",
-          href: "https://youtube.com",
+          href: "#",
         },
         {
           title: "Static Bloom",
           mood: "Soft distortion",
           year: "2026",
-          platform: "Spotify",
+          platform: "Coming soon",
           description: "一小片噪声逐渐绽放为旋律。",
-          href: "https://spotify.com",
+          href: "#",
         },
       ],
     },

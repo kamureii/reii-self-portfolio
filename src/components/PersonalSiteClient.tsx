@@ -12,7 +12,6 @@ import {
   LinkedinLogo,
   MapPin,
   MusicNotesSimple,
-  Network,
   PhoneCall,
   Play,
   ShieldCheck,
@@ -25,7 +24,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   locales,
@@ -168,7 +167,7 @@ function SceneHeading({
         align === "center" ? "mx-auto max-w-5xl items-center text-center" : "max-w-4xl",
       )}
     >
-      <h2 className="text-balance text-[clamp(2.8rem,6vw,6rem)] font-semibold leading-[0.98] tracking-normal text-cream">
+      <h2 className="text-balance text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[0.98] tracking-normal text-cream">
         {title}
       </h2>
       {description ? (
@@ -252,13 +251,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 function TrackCard({ track, index }: { track: Track; index: number }) {
-  return (
-    <a
-      href={track.href}
-      target="_blank"
-      rel="noreferrer"
-      className={cx("track-card scene-reveal group", `track-card-${index + 1}`)}
-    >
+  const isLiveLink = Boolean(track.href && track.href !== "#");
+  const cardClassName = cx(
+    "track-card scene-reveal group",
+    index === 0 ? "track-card-featured" : `track-card-${index + 1}`,
+  );
+  const cardContent = (
+    <>
       <div className="track-cover">
         <span className="track-orbit" />
         <span className="track-center">
@@ -277,11 +276,23 @@ function TrackCard({ track, index }: { track: Track; index: number }) {
         </div>
         <h3 className="mt-5 text-2xl font-semibold text-cream">{track.title}</h3>
         <p className="mt-3 text-sm leading-7 text-stone-300/72">{track.description}</p>
-        <div className="mt-auto flex items-center justify-between pt-7 text-sm font-semibold text-crimson">
+        <div className="mt-auto flex items-center justify-between pt-7 text-sm font-semibold text-crimson-bright">
           <span>{track.platform}</span>
-          <OpenIcon className="transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+          {isLiveLink ? (
+            <OpenIcon className="transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+          ) : null}
         </div>
       </div>
+    </>
+  );
+
+  if (!isLiveLink) {
+    return <article className={cardClassName}>{cardContent}</article>;
+  }
+
+  return (
+    <a href={track.href} target="_blank" rel="noreferrer" className={cardClassName}>
+      {cardContent}
     </a>
   );
 }
@@ -303,7 +314,7 @@ function NoteCard({
       className={cx("note-card scene-reveal group", index === 0 && "note-card-featured")}
     >
       <div className="flex items-center justify-between gap-4 text-xs text-stone-400">
-        <span className="text-crimson">{note.category}</span>
+        <span className="text-crimson-bright">{note.category}</span>
         <span className="font-mono">{note.date}</span>
       </div>
       <h3 className="mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl">
@@ -314,10 +325,23 @@ function NoteCard({
         <span className="text-stone-400">{note.readingTime}</span>
         <span className="inline-flex items-center gap-2 text-cream">
           {label}
-          <OpenIcon className="text-crimson transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
+          <OpenIcon className="text-crimson-bright transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
         </span>
       </div>
     </Link>
+  );
+}
+
+function ScrubQuote({ text }: { text: string }) {
+  const words = text.split(/\s+/);
+  return (
+    <p className="scrub-quote-container mt-5 text-balance text-2xl font-medium leading-relaxed text-cream sm:text-3xl">
+      {words.map((word, i) => (
+        <span key={i} className="scrub-word" data-scrub-index={i}>
+          {word}{i < words.length - 1 ? " " : ""}
+        </span>
+      ))}
+    </p>
   );
 }
 
@@ -325,11 +349,31 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
   const scope = useRef<HTMLElement>(null);
   const activeSectionRef = useRef<SceneId>("signal");
   const [activeSection, setActiveSection] = useState<SceneId>("signal");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
   useEffect(() => {
     document.documentElement.lang = locale;
     window.localStorage.setItem("portfolio-locale", locale);
   }, [locale]);
+
+  // Close mobile menu on Escape and handle body scroll lock
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === "Escape") closeMobileMenu();
+      };
+      window.addEventListener("keydown", handleEsc);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleEsc);
+      };
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [mobileMenuOpen, closeMobileMenu]);
 
   useGSAP(
     () => {
@@ -457,6 +501,26 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
         },
       });
 
+      // F2 — Scroll-driven text scrub on bio quote
+      const scrubWords = gsap.utils.toArray<HTMLElement>(".scrub-word");
+      if (scrubWords.length > 0) {
+        const quoteContainer = shell.querySelector(".scrub-quote-container");
+        if (quoteContainer) {
+          scrubWords.forEach((word, i) => {
+            gsap.to(word, {
+              opacity: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: quoteContainer,
+                start: () => `top+=${(i / scrubWords.length) * 100}% 80%`,
+                end: () => `top+=${((i + 1) / scrubWords.length) * 100}% 60%`,
+                scrub: 0.6,
+              },
+            });
+          });
+        }
+      }
+
       gsap.to(".signal-orbit", {
         rotation: 38,
         scale: 1.12,
@@ -529,6 +593,7 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
 
   return (
     <main
+      id="main-content"
       ref={scope}
       data-active-scene={activeSection}
       className="personal-shell min-h-[100dvh] w-full max-w-full overflow-x-hidden text-cream"
@@ -537,6 +602,31 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
       <div className="cinematic-grid" aria-hidden="true" />
       <div className="signal-orbit" aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true" />
+      <div className="grain-overlay" aria-hidden="true" />
+
+      {/* Mobile menu overlay */}
+      <nav
+        id="mobile-nav"
+        className="mobile-overlay"
+        data-open={mobileMenuOpen}
+        aria-hidden={!mobileMenuOpen}
+        aria-label="Mobile navigation"
+      >
+        {navItems.map(([href, label]) => (
+          <a
+            key={href}
+            href={href}
+            onClick={closeMobileMenu}
+            tabIndex={mobileMenuOpen ? undefined : -1}
+            className={cx(
+              "mobile-overlay-link",
+              activeSection === href.slice(1) && "active",
+            )}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
 
       <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:pt-5">
         <div className="site-nav mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full border border-white/10 bg-ink/76 px-3 py-2 backdrop-blur-xl">
@@ -571,8 +661,23 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
             ))}
           </nav>
 
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="mobile-menu-btn lg:hidden"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          >
+            <span className="flex flex-col gap-[5px]">
+              <span className="hamburger-line" />
+              <span className="hamburger-line" />
+            </span>
+          </button>
+
           <div className="flex shrink-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.045] p-1">
-            <GlobeHemisphereEast className="ml-2 hidden text-crimson sm:block" size={16} />
+            <GlobeHemisphereEast className="ml-2 hidden text-crimson-bright sm:block" size={16} />
             {locales.map((option) => (
               <Link
                 key={option}
@@ -644,39 +749,31 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
         data-scene
         className="scene-section relative min-h-[100dvh] px-4 py-28 sm:px-6 lg:px-8 lg:py-44"
       >
-        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.42fr_1.58fr]">
-          <div className="depth-layer scene-reveal lg:sticky lg:top-32 lg:self-start">
-            <div className="chapter-mark">
-              <span>02</span>
-              <Network size={26} weight="thin" />
-            </div>
-            <p className="mt-7 max-w-xs font-mono text-xs uppercase tracking-[0.2em] text-stone-500">
+        <div className="mx-auto max-w-7xl">
+          <div className="bio-section-label scene-reveal">
+            <span className="font-mono text-xs uppercase tracking-[0.2em]">
               {content.nav.bio}
-            </p>
+            </span>
           </div>
-          <div>
-            <SceneHeading title={content.bio.title} />
-            <p className="scene-reveal mt-10 max-w-3xl text-lg leading-9 text-stone-200/78 sm:text-xl">
-              {content.bio.lead}
-            </p>
-            <blockquote className="documentary-caption scene-reveal mt-14 max-w-4xl">
-              <span className="font-mono text-xs text-crimson">KAMUREI / VOICE NOTE</span>
-              <p className="mt-5 text-balance text-2xl font-medium leading-relaxed text-cream sm:text-3xl">
-                “{content.bio.quote}”
-              </p>
-            </blockquote>
-            <div className="fact-grid mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-[18px] border border-white/10 bg-white/10 sm:grid-cols-2">
-              {content.bio.facts.map((fact, index) => (
-                <div key={fact.label} className="scene-reveal fact-cell">
-                  {index === 0 ? <MapPin size={22} weight="duotone" /> : null}
-                  {index === 1 ? <GraduationCap size={22} weight="duotone" /> : null}
-                  {index === 2 ? <ShieldCheck size={22} weight="duotone" /> : null}
-                  {index === 3 ? <MusicNotesSimple size={22} weight="duotone" /> : null}
-                  <p className="mt-6 text-sm text-stone-400">{fact.label}</p>
-                  <p className="mt-2 text-lg font-semibold text-cream">{fact.value}</p>
-                </div>
-              ))}
-            </div>
+          <SceneHeading title={content.bio.title} />
+          <p className="scene-reveal mt-10 max-w-3xl text-lg leading-9 text-stone-200/78 sm:text-xl">
+            {content.bio.lead}
+          </p>
+          <blockquote className="documentary-caption scene-reveal mt-14 max-w-4xl">
+            <span className="font-mono text-xs text-crimson-bright">KAMUREI</span>
+            <ScrubQuote text={`\u201c${content.bio.quote}\u201d`} />
+          </blockquote>
+          <div className="fact-grid mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-[18px] border border-white/10 bg-white/10 sm:grid-cols-2">
+            {content.bio.facts.map((fact, index) => (
+              <div key={fact.label} className="scene-reveal fact-cell">
+                {index === 0 ? <MapPin size={22} weight="duotone" /> : null}
+                {index === 1 ? <GraduationCap size={22} weight="duotone" /> : null}
+                {index === 2 ? <ShieldCheck size={22} weight="duotone" /> : null}
+                {index === 3 ? <MusicNotesSimple size={22} weight="duotone" /> : null}
+                <p className="mt-6 text-sm text-stone-400">{fact.label}</p>
+                <p className="mt-2 text-lg font-semibold text-cream">{fact.value}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -711,7 +808,7 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
               </div>
               <p className="mt-8 text-sm leading-7 text-sky-100/68">{content.academic.institution}</p>
               <div className="mt-10 border-t border-sky-300/14 pt-6 font-mono text-xs text-sky-200/72">
-                campus.signal / {content.academic.signal}
+                {content.academic.signal}
               </div>
             </div>
           </div>
@@ -790,12 +887,12 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
         <div className="relative mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <SceneHeading title={content.music.title} description={content.music.description} />
-            <div className="scene-reveal flex items-center justify-between border-b border-crimson/25 pb-4 font-mono text-xs uppercase tracking-[0.2em] text-crimson">
+            <div className="scene-reveal flex items-center justify-between border-b border-crimson/25 pb-4 font-mono text-xs uppercase tracking-[0.2em] text-crimson-bright">
               <span>{content.ui.selectedTracks}</span>
               <VinylRecord size={26} weight="thin" />
             </div>
           </div>
-          <div className="track-deck mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="track-deck track-deck-stagger mt-14 grid grid-cols-1 gap-5">
             {content.music.tracks.map((track, index) => (
               <TrackCard key={track.title} track={track} index={index} />
             ))}
@@ -811,7 +908,7 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
         <div className="relative mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-end">
             <SceneHeading title={content.notes.title} description={content.notes.description} />
-            <p className="scene-reveal justify-self-end font-mono text-xs uppercase tracking-[0.2em] text-stone-500">
+            <p className="scene-reveal justify-self-end font-mono text-xs uppercase tracking-[0.2em] text-stone-400">
               {content.ui.latestNotes} / {content.notes.posts.length}
             </p>
           </div>
@@ -842,14 +939,10 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
               <p className="scene-reveal mt-12 max-w-3xl text-balance text-2xl font-medium leading-relaxed text-cream sm:text-3xl">
                 {content.contact.closing}
               </p>
-              <div className="scene-reveal mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="scene-reveal mt-10">
                 <a href="mailto:kamureii.official@gmail.com" className="primary-cta group">
                   {content.ui.sendSignal}
                   <span><EnvelopeSimple size={17} weight="bold" /></span>
-                </a>
-                <a href="https://github.com/kamureii" target="_blank" rel="noreferrer" className="secondary-cta group">
-                  {content.ui.viewGithub}
-                  <span><GithubLogo size={17} weight="bold" /></span>
                 </a>
               </div>
             </div>
@@ -868,19 +961,19 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
                     <span className="flex items-center gap-3">
                       <ContactIcon size={20} weight="duotone" />
                       <span>
-                        <span className="block text-xs text-stone-500">{contact.label}</span>
+                        <span className="block text-xs text-stone-400">{contact.label}</span>
                         <span className="mt-1 block text-sm font-medium text-cream">{contact.value}</span>
                       </span>
                     </span>
-                    <OpenIcon className="text-stone-500 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-crimson" />
+                    <OpenIcon className="text-stone-400 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-crimson-bright" />
                   </a>
                 );
               })}
             </div>
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-sm text-stone-500 sm:flex-row">
+          <div className="mt-20 flex flex-col justify-between gap-4 border-t border-white/10 pt-6 text-sm text-stone-400 sm:flex-row">
             <p>{content.footer}</p>
-            <p>2026 / Vietnam</p>
+            <p>{new Date().getFullYear()} / Vietnam</p>
           </div>
         </div>
       </footer>

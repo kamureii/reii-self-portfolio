@@ -34,7 +34,7 @@ export function NoteDetailClient({
   nextNote,
 }: NoteDetailClientProps) {
   return (
-    <main className="note-page min-h-[100dvh] overflow-x-hidden bg-ink text-cream">
+    <main id="main-content" className="note-page min-h-[100dvh] overflow-x-hidden bg-ink text-cream">
       <div className="note-page-background" aria-hidden="true" />
 
       <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:pt-5">
@@ -56,12 +56,12 @@ export function NoteDetailClient({
           </Link>
 
           <div className="flex shrink-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.045] p-1">
-            <GlobeHemisphereEast className="ml-2 hidden text-crimson sm:block" size={16} />
+            <GlobeHemisphereEast className="ml-2 hidden text-crimson-bright sm:block" size={16} />
             {locales.map((option) => (
               <Link
                 key={option}
                 href={`/${option}/notes/${note.slug}`}
-                className={`inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition duration-500 ${
+                className={`inline-flex h-8 items-center rounded-full px-3 text-xs font-semibold transition duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] ${
                   option === locale
                     ? "bg-cream text-ink"
                     : "text-stone-300 hover:bg-white/8 hover:text-white"
@@ -77,18 +77,18 @@ export function NoteDetailClient({
       <article className="relative mx-auto max-w-4xl px-4 pb-24 pt-36 sm:px-6 lg:pt-44">
         <Link
           href={`/${locale}#notes`}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-stone-400 transition hover:text-crimson"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-stone-400 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-crimson-bright"
         >
           <ArrowLeft size={16} weight="bold" />
           {content.ui.backHome}
         </Link>
 
         <div className="mt-14 flex flex-wrap items-center gap-4 font-mono text-xs uppercase tracking-[0.18em]">
-          <span className="text-crimson">{note.category}</span>
-          <span className="text-stone-600">/</span>
-          <span className="text-stone-500">{note.date}</span>
-          <span className="text-stone-600">/</span>
-          <span className="text-stone-500">{note.readingTime}</span>
+          <span className="text-crimson-bright">{note.category}</span>
+          <span className="text-stone-500">/</span>
+          <span className="text-stone-400">{note.date}</span>
+          <span className="text-stone-500">/</span>
+          <span className="text-stone-400">{note.readingTime}</span>
         </div>
 
         <h1 className="mt-8 text-balance text-[clamp(3rem,7vw,6.8rem)] font-semibold leading-[0.98] tracking-normal text-cream">
@@ -106,24 +106,24 @@ export function NoteDetailClient({
 
         <div className="mt-20 grid gap-4 sm:grid-cols-2">
           <Link href={`/${locale}/notes/${previousNote.slug}`} className="note-next-link group">
-            <span className="text-xs text-stone-500">{content.ui.previousNote}</span>
+            <span className="text-xs text-stone-400">{content.ui.previousNote}</span>
             <span className="mt-3 flex items-center gap-3 text-lg font-semibold text-cream">
               <ArrowLeft
                 size={18}
                 weight="bold"
-                className="text-crimson transition group-hover:-translate-x-1"
+                className="text-crimson-bright transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-x-1"
               />
               {previousNote.title}
             </span>
           </Link>
           <Link href={`/${locale}/notes/${nextNote.slug}`} className="note-next-link group">
-            <span className="text-xs text-stone-500">{content.ui.nextNote}</span>
+            <span className="text-xs text-stone-400">{content.ui.nextNote}</span>
             <span className="mt-3 flex items-center justify-between gap-3 text-lg font-semibold text-cream">
               {nextNote.title}
               <ArrowRight
                 size={18}
                 weight="bold"
-                className="text-crimson transition group-hover:translate-x-1"
+                className="text-crimson-bright transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1"
               />
             </span>
           </Link>
@@ -131,7 +131,7 @@ export function NoteDetailClient({
 
         <div className="mt-16 flex justify-center">
           <a
-            href="mailto:hung.tran@example.com"
+            href="mailto:kamureii.official@gmail.com"
             className="secondary-cta group"
           >
             {content.ui.sendSignal}
@@ -142,10 +142,10 @@ export function NoteDetailClient({
         </div>
       </article>
 
-      <footer className="border-t border-white/8 px-4 py-8 text-sm text-stone-500">
+      <footer className="border-t border-white/8 px-4 py-8 text-sm text-stone-400">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <p>KAMUREI / FIELD NOTES</p>
-          <Link href={`/${locale}`} aria-label={content.ui.backHome} className="hover:text-crimson">
+          <Link href={`/${locale}`} aria-label={content.ui.backHome} className="hover:text-crimson-bright">
             <House size={18} weight="duotone" />
           </Link>
         </div>
