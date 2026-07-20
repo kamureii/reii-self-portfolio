@@ -345,6 +345,7 @@ button:focus-visible {
     "portrait"
     "actions";
   min-height: calc(100dvh - 8rem);
+  isolation: isolate;
 }
 
 .hero-copy {
@@ -420,50 +421,91 @@ button:focus-visible {
 
 .hero-portrait-stage {
   position: relative;
-  z-index: 4;
+  z-index: 2;
   grid-area: portrait;
   min-height: min(74dvh, 760px);
   margin-right: clamp(-5rem, -4vw, -1.5rem);
   margin-left: clamp(-3rem, -2vw, -1rem);
-  overflow: hidden;
+  pointer-events: none;
+  overflow: visible;
   isolation: isolate;
-  mask-image: linear-gradient(180deg, transparent 0%, black 10%, black 78%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 10%, black 78%, transparent 100%);
+  mask-image: radial-gradient(
+    ellipse 62% 84% at 56% 50%,
+    black 0 34%,
+    rgb(0 0 0 / 0.76) 48%,
+    rgb(0 0 0 / 0.3) 62%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 84% at 56% 50%,
+    black 0 34%,
+    rgb(0 0 0 / 0.76) 48%,
+    rgb(0 0 0 / 0.3) 62%,
+    transparent 80%
+  );
+}
+
+.hero-portrait-stage::before {
+  content: "";
+  position: absolute;
+  inset: 4% -18% -12% -20%;
+  z-index: 0;
+  opacity: 0.82;
+  background:
+    radial-gradient(ellipse at 54% 42%, rgb(244 241 238 / 0.08), transparent 18%),
+    radial-gradient(ellipse at 56% 50%, rgb(209 30 56 / 0.42), transparent 54%),
+    linear-gradient(90deg, transparent, rgb(177 18 38 / 0.16), transparent 78%);
+  filter: blur(34px);
 }
 
 .hero-portrait-halo {
   position: absolute;
-  inset: 8% 3% 2% 5%;
+  inset: 4% -10% -6% -10%;
   z-index: 0;
   border-radius: 999px;
-  opacity: 0.78;
+  opacity: 0.68;
   background:
-    radial-gradient(circle at 54% 36%, rgb(244 241 238 / 0.1), transparent 18%),
-    radial-gradient(circle at 58% 46%, rgb(209 30 56 / 0.42), transparent 58%);
-  filter: blur(32px);
+    radial-gradient(circle at 53% 36%, rgb(244 241 238 / 0.08), transparent 16%),
+    radial-gradient(circle at 58% 46%, rgb(209 30 56 / 0.5), transparent 56%);
+  filter: blur(42px);
 }
 
 .hero-portrait-art {
   z-index: 1;
   object-fit: cover;
   object-position: 50% 18%;
-  opacity: 0.88;
-  filter: saturate(0.95) contrast(1.08) brightness(0.86);
-  transform: scale(1.01);
-  mask-image: radial-gradient(ellipse 60% 76% at 60% 52%, black 0 36%, rgb(0 0 0 / 0.82) 53%, transparent 90%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 76% at 60% 52%, black 0 36%, rgb(0 0 0 / 0.82) 53%, transparent 90%);
+  opacity: 0.9;
+  mix-blend-mode: luminosity;
+  filter: saturate(0.78) contrast(1.12) brightness(0.86);
+  transform: scale(1.08);
+  mask-image: radial-gradient(
+    ellipse 58% 80% at 56% 49%,
+    black 0 32%,
+    rgb(0 0 0 / 0.72) 48%,
+    rgb(0 0 0 / 0.22) 62%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 58% 80% at 56% 49%,
+    black 0 32%,
+    rgb(0 0 0 / 0.72) 48%,
+    rgb(0 0 0 / 0.22) 62%,
+    transparent 80%
+  );
 }
 
 .hero-portrait-vignette {
   position: absolute;
-  inset: 0;
+  inset: -18% -16%;
   z-index: 2;
   content: "";
   background:
-    linear-gradient(90deg, rgb(5 5 6 / 0.96), rgb(5 5 6 / 0.72) 14%, transparent 34%, transparent 70%, rgb(5 5 6 / 0.82)),
-    linear-gradient(180deg, rgb(5 5 6 / 0.82), transparent 22%, transparent 62%, rgb(5 5 6 / 0.94)),
-    radial-gradient(ellipse at 59% 45%, transparent 0 28%, rgb(5 5 6 / 0.5) 83%);
+    radial-gradient(ellipse 62% 64% at 56% 47%, transparent 0 30%, rgb(5 5 6 / 0.32) 62%, rgb(5 5 6 / 0.9) 90%),
+    linear-gradient(90deg, rgb(5 5 6 / 0.96), transparent 24%, transparent 64%, rgb(5 5 6 / 0.86)),
+    linear-gradient(180deg, rgb(5 5 6 / 0.88), transparent 24%, transparent 60%, rgb(5 5 6 / 0.96));
   mix-blend-mode: multiply;
+  mask-image: radial-gradient(ellipse 68% 84% at 56% 50%, black 0 38%, rgb(0 0 0 / 0.55) 56%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 68% 84% at 56% 50%, black 0 38%, rgb(0 0 0 / 0.55) 56%, transparent 78%);
 }
 
 @keyframes signal-breathe {
@@ -902,7 +944,7 @@ button:focus-visible {
   max-width: 68ch;
   font-size: 1.125rem;
   line-height: 2;
-  color: rgb(214 211 209 / 0.78);
+  color: rgb(214 211 209 / 0.84);
 }
 
 .note-body p:first-child::first-letter {
@@ -952,7 +994,24 @@ button:focus-visible {
   }
 
   .hero-portrait-stage {
-    align-self: center;
+    position: absolute;
+    top: clamp(-9rem, -12vh, -5rem);
+    right: clamp(-20rem, -15vw, -7rem);
+    width: min(74vw, 1040px);
+    height: min(105dvh, 980px);
+    bottom: auto;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .hero-portrait-art {
+    opacity: 0.9;
+    mix-blend-mode: luminosity;
+    filter: saturate(0.78) contrast(1.12) brightness(0.86);
+  }
+
+  .hero-portrait-vignette {
+    opacity: 0.58;
   }
 }
 
@@ -970,6 +1029,20 @@ button:focus-visible {
   .hero-portrait-stage {
     min-height: min(62vw, 500px);
     margin: -1rem -8vw 0;
+    mask-image: radial-gradient(
+      ellipse 84% 80% at 54% 50%,
+      black 0 34%,
+      rgb(0 0 0 / 0.78) 52%,
+      rgb(0 0 0 / 0.28) 72%,
+      transparent 90%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 84% 80% at 54% 50%,
+      black 0 34%,
+      rgb(0 0 0 / 0.78) 52%,
+      rgb(0 0 0 / 0.28) 72%,
+      transparent 90%
+    );
   }
 
   .hero-actions {
@@ -1030,9 +1103,22 @@ button:focus-visible {
 
   .hero-portrait-art {
     object-position: 50% 14%;
-    opacity: 0.82;
-    mask-image: radial-gradient(ellipse 76% 82% at 50% 56%, black 0 36%, rgb(0 0 0 / 0.74) 54%, transparent 92%);
-    -webkit-mask-image: radial-gradient(ellipse 76% 82% at 50% 56%, black 0 36%, rgb(0 0 0 / 0.74) 54%, transparent 92%);
+    opacity: 0.68;
+    transform: scale(1.12);
+    mask-image: radial-gradient(
+      ellipse 80% 84% at 50% 55%,
+      black 0 32%,
+      rgb(0 0 0 / 0.66) 50%,
+      rgb(0 0 0 / 0.24) 70%,
+      transparent 90%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 84% at 50% 55%,
+      black 0 32%,
+      rgb(0 0 0 / 0.66) 50%,
+      rgb(0 0 0 / 0.24) 70%,
+      transparent 90%
+    );
   }
 
   .hero-actions {
@@ -1262,7 +1348,7 @@ button:focus-visible {
 
 .scrub-word {
   display: inline;
-  opacity: 0.12;
+  opacity: 0.30;
   transition: opacity 0ms;
   will-change: opacity;
 }

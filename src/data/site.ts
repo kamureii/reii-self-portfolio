@@ -26,6 +26,7 @@ export type Project = {
   contribution: string;
   technologies: string[];
   status: string;
+  href?: string;
 };
 
 export type Track = {

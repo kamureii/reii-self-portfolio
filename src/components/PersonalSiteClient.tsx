@@ -171,7 +171,7 @@ function SceneHeading({
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-base leading-8 text-stone-300/78 sm:text-lg">
+        <p className="max-w-2xl text-base leading-8 text-stone-300/84 sm:text-lg">
           {description}
         </p>
       ) : null}
@@ -217,13 +217,10 @@ function SectionNav({
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
-  return (
-    <article
-      className={cx(
-        "project-card scene-reveal group",
-        index === 0 || index === 3 ? "lg:col-span-7" : "lg:col-span-5",
-      )}
-    >
+  const isLinked = Boolean(project.href);
+  const colSpan = index === 0 || index === 3 ? "lg:col-span-7" : "lg:col-span-5";
+  const cardContent = (
+    <>
       <div className="packet-line" aria-hidden="true" />
       <div className="flex items-start justify-between gap-5">
         <span className="font-mono text-sm text-sky-200/70">{String(index + 1).padStart(2, "0")}</span>
@@ -234,9 +231,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       <h3 className="mt-12 max-w-xl text-2xl font-semibold leading-tight text-cream sm:text-3xl">
         {project.title}
       </h3>
-      <p className="mt-4 max-w-xl leading-8 text-slate-200/72">{project.description}</p>
-      <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300/62">{project.contribution}</p>
-      <div className="mt-auto flex flex-wrap gap-2 pt-9">
+      <p className="mt-4 max-w-xl leading-8 text-slate-200/82">{project.description}</p>
+      <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300/72">{project.contribution}</p>
+      <div className="mt-auto flex flex-wrap items-center gap-2 pt-9">
         {project.technologies.map((technology) => (
           <span
             key={technology}
@@ -245,7 +242,32 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {technology}
           </span>
         ))}
+        {isLinked ? (
+          <span className="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold text-sky-300 transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-white">
+            View
+            <OpenIcon className="transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </span>
+        ) : null}
       </div>
+    </>
+  );
+
+  if (isLinked) {
+    return (
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noreferrer"
+        className={cx("project-card scene-reveal group", colSpan)}
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <article className={cx("project-card scene-reveal group", colSpan)}>
+      {cardContent}
     </article>
   );
 }
@@ -275,12 +297,14 @@ function TrackCard({ track, index }: { track: Track; index: number }) {
           <span className="font-mono">{track.year}</span>
         </div>
         <h3 className="mt-5 text-2xl font-semibold text-cream">{track.title}</h3>
-        <p className="mt-3 text-sm leading-7 text-stone-300/72">{track.description}</p>
+        <p className="mt-3 text-sm leading-7 text-stone-300/82">{track.description}</p>
         <div className="mt-auto flex items-center justify-between pt-7 text-sm font-semibold text-crimson-bright">
           <span>{track.platform}</span>
           {isLiveLink ? (
             <OpenIcon className="transition duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
-          ) : null}
+          ) : (
+            <span className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-[0.65rem] uppercase tracking-[0.15em] text-stone-400">Coming soon</span>
+          )}
         </div>
       </div>
     </>
@@ -320,7 +344,7 @@ function NoteCard({
       <h3 className="mt-7 max-w-2xl text-balance text-2xl font-semibold leading-tight text-cream sm:text-3xl">
         {note.title}
       </h3>
-      <p className="mt-4 max-w-xl leading-8 text-stone-300/72">{note.excerpt}</p>
+      <p className="mt-4 max-w-xl leading-8 text-stone-300/82">{note.excerpt}</p>
       <div className="mt-auto flex items-center justify-between gap-4 pt-10 text-sm font-semibold">
         <span className="text-stone-400">{note.readingTime}</span>
         <span className="inline-flex items-center gap-2 text-cream">
@@ -714,11 +738,11 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
             <p className="hero-support hero-intro">{content.hero.line}</p>
           </div>
 
-          <figure className="hero-support hero-portrait-stage relative">
+          <figure className="hero-support hero-portrait-stage relative" aria-hidden="true">
             <div className="hero-portrait-halo" aria-hidden="true" />
             <Image
               src="/portrait/kamurei-typographic.png"
-              alt="KAMUREI red typographic portrait"
+              alt=""
               fill
               preload
               sizes="(max-width: 767px) 92vw, (max-width: 1023px) 78vw, 58vw"
@@ -806,7 +830,7 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
                   />
                 </div>
               </div>
-              <p className="mt-8 text-sm leading-7 text-sky-100/68">{content.academic.institution}</p>
+              <p className="mt-8 text-sm leading-7 text-sky-100/80">{content.academic.institution}</p>
               <div className="mt-10 border-t border-sky-300/14 pt-6 font-mono text-xs text-sky-200/72">
                 {content.academic.signal}
               </div>
@@ -849,7 +873,7 @@ export function PersonalSiteClient({ locale, content }: PersonalSiteClientProps)
                   <div>
                     <p className="text-sm font-semibold text-sky-300">{content.work.company}</p>
                     <h3 className="mt-4 text-3xl font-semibold text-cream">{content.work.role}</h3>
-                    <p className="mt-3 text-sm text-sky-100/68">{content.work.period}</p>
+                    <p className="mt-3 text-sm text-sky-100/80">{content.work.period}</p>
                   </div>
                   <div className="rounded-[14px] bg-white p-2">
                     <Image
